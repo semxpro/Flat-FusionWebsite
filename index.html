@@ -1,1 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Flat Fusion – Minecraft SMP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        /* ── Reset & Base ── */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        :root {
+            --bg-primary: #0b0d1a;
+            --bg-secondary: #12162a;
+            --bg-glass: rgba(255, 255, 255, 0.04);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --text-primary: #f0f2ff;
+            --text-secondary: #a8b2d9;
+            --accent-cyan: #00e5ff;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --accent-glow: rgba(0, 229, 255, 0.25);
+            --shadow-glow: 0 0 40px rgba(0, 229, 255, 0.15);
+            --radius: 18px;
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            background-image:
+                radial-gradient(ellipse at 20% 50%, rgba(10, 30, 80, 0.5) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(80, 20, 120, 0.25) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(0, 40, 80, 0.3) 0%, transparent 40%);
+            background-attachment: fixed;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-cyan);
+            border-radius: 10px;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        .glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px) saturate(1.3);
+            -webkit-backdrop-filter: blur(16px) saturate(1.3);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* ── Header ── */
+        header {
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 13, 26, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-glass);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .logo-circle {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: var(--transition);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.06);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .logo-circle:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.15);
+            transform: scale(1.04);
+        }
+
+        .logo-circle img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+            display: block;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+            transition: filter var(--transition);
+        }
+
+        .logo-circle:hover img {
+            filter: drop-shadow(0 0 22px rgba(0, 229, 255, 0.4));
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color var(--transition), text-shadow var(--transition);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width var(--transition);
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ── Hero ── */
+        .hero {
+            padding: 40px 0 30px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .hero-logo {
+            display: inline-block;
+            margin-bottom: 24px;
+            animation: floatGlowTilt 5s ease-in-out infinite;
+            perspective: 800px;
+        }
+
+        .hero-logo img {
+            height: 160px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 0 40px var(--accent-glow));
+            transition: filter 0.5s;
+            border-radius: 16px;
+            will-change: transform;
+        }
+
+        .hero-logo img:hover {
+            filter: drop-shadow(0 0 70px rgba(0, 229, 255, 0.5));
+        }
+
+        @keyframes floatGlowTilt {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                filter: drop-shadow(0 0 30px var(--accent-glow));
+            }
+            25% {
+                transform: translateY(-12px) rotate(2deg) scale(1.02);
+                filter: drop-shadow(0 0 50px rgba(0, 229, 255, 0.35));
+            }
+            75% {
+                transform: translateY(-8px) rotate(-2deg) scale(1.01);
+                filter: drop-shadow(0 0 50px rgba(168, 85, 247, 0.3));
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-cyan) 40%, var(--accent-purple) 70%, var(--accent-pink) 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease-in-out infinite, fadeSlideUp 1s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes gradientShift {
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes fadeSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: var(--text-secondary);
+            margin-top: 10px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease-out 0.3s forwards;
+            flex-wrap: wrap;
+        }
+
+        .hero-subtitle .lightning-icon {
+            width: 28px;
+            height: 28px;
+            fill: var(--accent-cyan);
+            flex-shrink: 0;
+        }
+
+        .hero-subtitle span {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* ── Social Bar ── */
+        .social-bar {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin: 28px 0 18px;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease-out 0.5s forwards;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            color: #fff;
+            transition: var(--transition);
+            border: 1px solid var(--border-glass);
+            background: var(--bg-glass);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-btn svg {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .social-btn.tiktok svg {
+            fill: #ffffff;
+        }
+
+        .social-btn.tiktok:hover {
+            background: rgba(0, 0, 0, 0.6);
+            border-color: #ff0050;
+            box-shadow: 0 0 40px rgba(255, 0, 80, 0.25);
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        .social-btn.youtube svg {
+            fill: #ff0033;
+        }
+
+        .social-btn.youtube:hover {
+            background: rgba(255, 0, 0, 0.15);
+            border-color: #ff0033;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        /* ── Discord CTA ── */
+        .discord-cta {
+            text-align: center;
+            margin: 12px 0 16px;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease-out 0.7s forwards;
+        }
+
+        .discord-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 56px;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #5865f2, #7b5af5);
+            text-decoration: none;
+            border: none;
+            box-shadow: 0 0 40px rgba(88, 101, 242, 0.35);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .discord-btn::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 60px;
+            background: linear-gradient(135deg, #5865f2, #a855f7, #5865f2);
+            background-size: 300% 300%;
+            z-index: -1;
+            animation: discordPulse 3s ease-in-out infinite;
+            filter: blur(8px);
+            opacity: 0.7;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 0 70px rgba(88, 101, 242, 0.5);
+        }
+
+        .discord-btn:active {
+            transform: scale(0.97);
+        }
+
+        @keyframes discordPulse {
+            0%,
+            100% {
+                background-position: 0% 50%;
+                opacity: 0.6;
+            }
+            50% {
+                background-position: 100% 50%;
+                opacity: 1;
+            }
+        }
+
+        .discord-btn svg {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* ── Website Link (below Discord) ── */
+        .website-cta {
+            text-align: center;
+            margin: 6px 0 22px;
+            opacity: 0;
+            animation: fadeSlideUp 1s ease-out 0.8s forwards;
+        }
+
+        .website-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 38px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            transition: var(--transition);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .website-link .globe-icon {
+            width: 24px;
+            height: 24px;
+            fill: var(--accent-cyan);
+            flex-shrink: 0;
+        }
+
+        .website-link:hover {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.15);
+            transform: translateY(-3px);
+            background: rgba(168, 85, 247, 0.06);
+        }
+
+        /* ── Server IP Box ── */
+        .server-box {
+            max-width: 700px;
+            margin: 10px auto 40px;
+            padding: 28px 32px;
+            text-align: center;
+            background: var(--bg-glass);
+            backdrop-filter: blur(18px) saturate(1.4);
+            -webkit-backdrop-filter: blur(18px) saturate(1.4);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-glow);
+            opacity: 0;
+            animation: fadeSlideUp 1s ease-out 0.9s forwards;
+            width: 100%;
+        }
+
+        .server-box .label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+
+        .server-box .sub-label {
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .server-box .ip-row,
+        .server-box .port-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px 18px;
+            margin: 6px 0 4px;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: rgba(0, 229, 255, 0.08);
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.05);
+            letter-spacing: 0.5px;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        .copy-btn .copy-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover {
+            background: rgba(0, 229, 255, 0.18);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .copy-btn:active {
+            transform: scale(0.96);
+        }
+
+        .copy-btn.copied {
+            border-color: #4ade80;
+            background: rgba(74, 222, 128, 0.15);
+            box-shadow: 0 0 40px rgba(74, 222, 128, 0.15);
+        }
+
+        .server-box .divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            margin: 12px auto;
+            border-radius: 4px;
+        }
+
+        /* ── About / Features ── */
+        .about-section {
+            padding: 30px 0 50px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .about-section .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-section .section-desc {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 36px;
+            font-size: 1.05rem;
+            padding: 0 12px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 28px;
+            width: 100%;
+        }
+
+        .feature-card {
+            padding: 30px 22px 26px;
+            text-align: center;
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px) saturate(1.3);
+            -webkit-backdrop-filter: blur(12px) saturate(1.3);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius);
+            transition: var(--transition);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.08), 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-card .feature-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--accent-cyan);
+            filter: drop-shadow(0 0 12px rgba(0, 229, 255, 0.2));
+        }
+
+        .feature-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-weight: 300;
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding: 28px 0 22px;
+            border-top: 1px solid var(--border-glass);
+            text-align: center;
+            background: rgba(11, 13, 26, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        footer .copy {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        /* ── Toast ── */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: rgba(11, 13, 26, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            padding: 14px 34px;
+            border-radius: 50px;
+            font-weight: 500;
+            color: #4ade80;
+            box-shadow: 0 0 50px rgba(74, 222, 128, 0.12);
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+            z-index: 999;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+            max-width: 90%;
+        }
+
+        .toast.visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast .check-icon {
+            width: 22px;
+            height: 22px;
+            fill: #4ade80;
+            flex-shrink: 0;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .logo-wrap {
+                justify-content: center;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 12px 18px;
+                padding: 4px 0;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .hero-logo img {
+                height: 120px;
+            }
+
+            .server-box {
+                padding: 22px 16px;
+            }
+
+            .discord-btn {
+                padding: 16px 32px;
+                font-size: 1.1rem;
+            }
+
+            .discord-btn svg {
+                width: 26px;
+                height: 26px;
+            }
+
+            .website-link {
+                padding: 12px 28px;
+                font-size: 0.95rem;
+            }
+
+            .logo-circle {
+                width: 44px;
+                height: 44px;
+            }
+
+            .logo-circle img {
+                width: 28px;
+                height: 28px;
+            }
+
+            .logo-text {
+                font-size: 1rem;
+            }
+
+            .hero-subtitle .lightning-icon {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 24px 0 16px;
+            }
+
+            .hero-logo img {
+                height: 90px;
+            }
+
+            .social-btn {
+                padding: 10px 18px;
+                font-size: 0.8rem;
+                gap: 6px;
+            }
+
+            .social-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .server-box .ip-row,
+            .server-box .port-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .copy-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+
+            .discord-btn {
+                padding: 14px 24px;
+                font-size: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .discord-btn svg {
+                width: 24px;
+                height: 24px;
+            }
+
+            .website-link {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .server-box {
+                padding: 18px 14px;
+                margin: 6px auto 28px;
+            }
+
+            .toast {
+                width: 90%;
+                text-align: center;
+                justify-content: center;
+                padding: 12px 18px;
+                font-size: 0.85rem;
+                bottom: 16px;
+                white-space: normal;
+            }
+
+            .logo-circle {
+                width: 38px;
+                height: 38px;
+            }
+
+            .logo-circle img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .logo-text {
+                font-size: 0.85rem;
+            }
+
+            .feature-card .feature-icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            .server-box .label {
+                font-size: 0.6rem;
+                letter-spacing: 2px;
+            }
+            .social-btn {
+                padding: 8px 14px;
+                font-size: 0.7rem;
+            }
+            .social-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── HEADER ─── -->
+    <header>
+        <div class="container">
+            <a href="#" class="logo-wrap">
+                <span class="logo-circle">
+                    <img src="https://i.postimg.cc/pT5G33Gg/file-0000000018a87206bc6007f4caa5b048.png" alt="Flat Fusion Logo" />
+                </span>
+                <span class="logo-text">Flat Fusion</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#server">Server</a></li>
+                <li><a href="#footer">Contact</a></li>
+                <li><a href="https://discord.com/channels/1433382145858207858/1520230104436051988" target="_blank" rel="noopener">Support</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- ─── HERO ─── -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-logo">
+                <img src="https://i.postimg.cc/pT5G33Gg/file-0000000018a87206bc6007f4caa5b048.png" alt="Flat Fusion" />
+            </div>
+
+            <h1 class="hero-title">Welcome to Flat Fusion</h1>
+            <div class="hero-subtitle">
+                <svg class="lightning-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L4 14h6v8l9-12h-6V2z"/>
+                </svg>
+                <span>Flat Fusion</span> community &bull; 24/7 Survival SMP
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-bar">
+                <a href="https://www.tiktok.com/@semxpro?_r=1&_t=ZS-98dOnzhjalk" target="_blank" rel="noopener noreferrer" class="social-btn tiktok">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path d="M448 209.9a210.1 210.1 0 0 1 -122.8-39.3v178.6A162.6 162.6 0 1 1 185 188.3v89.9a74.6 74.6 0 1 0 52.2 71.2V0h88.3a121.8 121.8 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/>
+                    </svg>
+                    TikTok
+                </a>
+                <a href="https://www.youtube.com/@SemxPro" target="_blank" rel="noopener noreferrer" class="social-btn youtube">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    YouTube
+                </a>
+            </div>
+
+            <!-- Discord CTA -->
+            <div class="discord-cta">
+                <a href="https://discord.gg/ZGHKKUx44w" target="_blank" rel="noopener noreferrer" class="discord-btn">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                    Join Discord
+                </a>
+            </div>
+
+            <!-- Website Link -->
+            <div class="website-cta">
+                <a href="https://www.flatfusion.qzz.io/" target="_blank" rel="noopener noreferrer" class="website-link">
+                    <svg class="globe-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                    Visit our Main Website
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── SERVER IP BOX ─── -->
+    <div class="container" id="server">
+        <div class="server-box">
+            <div class="label">SERVER IP ADDRESS</div>
+            <div class="sub-label">— JAVA &amp; BEDROCK —</div>
+
+            <div class="ip-row">
+                <button class="copy-btn" data-copy="play.flatfusion.fun" id="copyIp">
+                    <svg class="copy-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                    </svg>
+                    <span>play.flatfusion.fun</span>
+                </button>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="label" style="margin-top:4px;">BEDROCK PORTS</div>
+            <div class="port-row">
+                <button class="copy-btn" data-copy="25600" id="copyPort">
+                    <svg class="copy-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                    </svg>
+                    <span>25600</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── ABOUT / FEATURES ─── -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">Survival SMP</h2>
+            <p class="section-desc">
+                Flat Fusion is a next-gen Minecraft Survival SMP built for players who love
+                community, creativity, and adventure. Join us 24/7 — no resets, no limits.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                        </svg>
+                    </div>
+                    <h3>24/7 Uptime</h3>
+                    <p>Our server never sleeps. Play anytime with zero downtime and rock-solid performance.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L4 14h6v8l9-12h-6V2z"/>
+                        </svg>
+                    </div>
+                    <h3>Lag-Free</h3>
+                    <p>Optimized hardware and smart routing deliver buttery-smooth gameplay, even at peak hours.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H6v2h12V6h-2V4zm-6 0h4v2h-4V4zM6 16v-2h12v2H6zm-2 4h16v2H4v-2z"/>
+                        </svg>
+                    </div>
+                    <h3>Friendly Community</h3>
+                    <p>Join a welcoming, mature player base. Build, trade, and explore together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+    <footer id="footer">
+        <div class="container">
+            <p class="copy">&copy; 2026 Flat Fusion &bull; Build By Semx</p>
+        </div>
+    </footer>
+
+    <!-- ─── TOAST ─── -->
+    <div class="toast" id="toast">
+        <svg class="check-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+        </svg>
+        <span id="toastMessage">Copied!</span>
+    </div>
+
+    <!-- ─── JAVASCRIPT ─── -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ── Toast ──
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            let toastTimer = null;
+
+            function showToast(msg) {
+                if (toastTimer) {
+                    clearTimeout(toastTimer);
+                    toast.classList.remove('visible');
+                }
+                void toast.offsetWidth;
+                toastMessage.textContent = msg || 'Copied!';
+                toast.classList.add('visible');
+
+                toastTimer = setTimeout(function() {
+                    toast.classList.remove('visible');
+                    toastTimer = null;
+                }, 2000);
+            }
+
+            // ── Copy function ──
+            function copyToClipboard(text, button, successMsg) {
+                if (!navigator.clipboard) {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.left = '-9999px';
+                    ta.style.top = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    try {
+                        document.execCommand('copy');
+                        showToast(successMsg || 'Copied!');
+                        if (button) button.classList.add('copied');
+                        setTimeout(() => { if (button) button.classList.remove('copied'); }, 1600);
+                    } catch (_) {
+                        showToast('Could not copy');
+                    }
+                    document.body.removeChild(ta);
+                    return;
+                }
+
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(successMsg || 'Copied!');
+                    if (button) {
+                        button.classList.add('copied');
+                        setTimeout(() => { button.classList.remove('copied'); }, 1600);
+                    }
+                }).catch(() => {
+                    showToast('Could not copy');
+                });
+            }
+
+            // ── Copy IP ──
+            const copyIpBtn = document.getElementById('copyIp');
+            if (copyIpBtn) {
+                copyIpBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const text = this.getAttribute('data-copy') || 'play.flatfusion.fun';
+                    copyToClipboard(text, this, 'IP Copied!');
+                });
+            }
+
+            // ── Copy Port ──
+            const copyPortBtn = document.getElementById('copyPort');
+            if (copyPortBtn) {
+                copyPortBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const text = this.getAttribute('data-copy') || '25600';
+                    copyToClipboard(text, this, 'Port Copied!');
+                });
+            }
+
+            // ── Keyboard shortcut: Escape closes toast ──
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && toast.classList.contains('visible')) {
+                    toast.classList.remove('visible');
+                    if (toastTimer) {
+                        clearTimeout(toastTimer);
+                        toastTimer = null;
+                    }
+                }
+            });
+
+            console.log('🚀 Flat Fusion — Welcome!');
+        })();
+    </script>
+
+</body>
+</html>
