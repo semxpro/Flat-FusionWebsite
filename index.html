@@ -974,11 +974,11 @@
 
             <div class="label" style="margin-top:4px;">BEDROCK PORTS</div>
             <div class="port-row">
-                <button class="copy-btn" data-copy="19148" id="copyPort">
+                <button class="copy-btn" data-copy="19156" id="copyPort">
                     <svg class="copy-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
                     </svg>
-                    <span>19148</span>
+                    <span>19156</span>
                 </button>
             </div>
         </div>
@@ -1113,7 +1113,7 @@
             if (copyPortBtn) {
                 copyPortBtn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const text = this.getAttribute('data-copy') || '19148';
+                    const text = this.getAttribute('data-copy') || '19156';
                     copyToClipboard(text, this, 'Port Copied!');
                 });
             }
